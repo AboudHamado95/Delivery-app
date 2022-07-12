@@ -59,8 +59,6 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                 right: Dimensions.width20,
                 left: Dimensions.width20,
                 top: Dimensions.height20,
-                // vertical: Dimensions.height20,
-                // horizontal: Dimensions.width20,
               ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -74,7 +72,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                   const AppColumn(text: 'Chinese Side'),
                   SizedBox(height: Dimensions.height20),
                   Padding(
-                    padding:  EdgeInsets.only(bottom: Dimensions.height10),
+                    padding: EdgeInsets.only(bottom: Dimensions.height10),
                     child: BigText(text: 'Introduce'),
                   ),
                   Expanded(
