@@ -19,7 +19,10 @@ class RecommendedFoodDetail extends StatelessWidget {
           SliverAppBar(
             toolbarHeight: 70,
             title: Padding(
-              padding: EdgeInsets.only(bottom: Dimensions.height10,right: Dimensions.width10,left: Dimensions.width10),
+              padding: EdgeInsets.only(
+                  bottom: Dimensions.height10,
+                  right: Dimensions.width10,
+                  left: Dimensions.width10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -80,7 +83,12 @@ class RecommendedFoodDetail extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.width20*1.6, vertical: Dimensions.height10),
+                horizontal: Dimensions.width20 * 1.6,
+                vertical: Dimensions.height10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimensions.radius20),
+                    topRight: Radius.circular(Dimensions.radius20))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -129,7 +137,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                         borderRadius:
                             BorderRadius.circular(Dimensions.radius20),
                         color: Colors.white),
-                    child:const Icon(
+                    child: const Icon(
                       Icons.favorite,
                       color: AppColor.mainColor,
                     )),
