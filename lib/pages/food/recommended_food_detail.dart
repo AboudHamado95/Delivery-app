@@ -125,7 +125,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             ),
           ),
           Container(
-            height: 120,
+            height: Dimensions.bottomHeightBar,
             padding: EdgeInsets.only(
                 top: Dimensions.height30,
                 bottom: Dimensions.height30,
