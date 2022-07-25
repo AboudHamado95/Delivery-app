@@ -32,12 +32,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       color: AppColor.mainColor,
                     ),
                     Row(
-                      children: [
+                      children: const [
                         SmallText(
                           text: 'City',
                           color: Colors.black54,
                         ),
-                        const Icon(
+                        Icon(
                           Icons.arrow_drop_down_rounded,
                         ),
                       ],

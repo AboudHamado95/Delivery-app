@@ -1,22 +1,32 @@
+import 'package:delivery/controllers/recommended_product_controller.dart';
+import 'package:delivery/utils/app_constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_lorem/flutter_lorem.dart';
+import 'package:get/get.dart';
+
+import 'package:delivery/routes/route_helper.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:delivery/utils/dimensions.dart';
 import 'package:delivery/widgets/app_icon.dart';
 import 'package:delivery/widgets/big_text.dart';
 import 'package:delivery/widgets/expandable_text_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+  const RecommendedFoodDetail({Key? key, required this.pageId})
+      : super(key: key);
+  final int pageId;
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Padding(
               padding: EdgeInsets.only(
@@ -25,9 +35,13 @@ class RecommendedFoodDetail extends StatelessWidget {
                   left: Dimensions.width10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  AppIcon(icon: Icons.clear),
-                  AppIcon(icon: Icons.shopping_cart_outlined)
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getInitial());
+                      },
+                      child: const AppIcon(icon: Icons.clear)),
+                  const AppIcon(icon: Icons.shopping_cart_outlined)
                 ],
               ),
             ),
@@ -37,14 +51,14 @@ class RecommendedFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Dimensions.radius20),
-                    topRight: Radius.circular(Dimensions.radius20),
+                    topLeft: Radius.circular(Dimensions.radius30),
+                    topRight: Radius.circular(Dimensions.radius30),
                   ),
                 ),
                 padding: EdgeInsets.only(
                     top: Dimensions.height10 / 2, bottom: Dimensions.height10),
                 child: Center(
-                  child: BigText(text: 'Chinese Side', size: Dimensions.font26),
+                  child: BigText(text: product.name!, size: Dimensions.font26),
                 ),
               ),
             ),
@@ -52,8 +66,8 @@ class RecommendedFoodDetail extends StatelessWidget {
             backgroundColor: AppColor.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                'assets/images/food6.jpg',
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
                 fit: BoxFit.cover,
                 width: double.maxFinite,
               ),
@@ -70,7 +84,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                       vertical: Dimensions.height20,
                       horizontal: Dimensions.width10),
                   child: ExpandableTextWidget(
-                    text: lorem(words: 170),
+                    text: product.description!,
                   ),
                 )
               ],
@@ -98,7 +112,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     iconColor: Colors.white,
                     backgroundColor: AppColor.mainColor),
                 BigText(
-                  text: '\$12.88X0',
+                  text: '\$${product.price!} X 0',
                   color: AppColor.mainBlackColor,
                   size: Dimensions.font20,
                 ),

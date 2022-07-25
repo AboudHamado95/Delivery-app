@@ -1,3 +1,8 @@
+import 'package:delivery/controllers/popular_product_controller.dart';
+import 'package:delivery/controllers/recommended_product_controller.dart';
+import 'package:delivery/models/product_model.dart';
+import 'package:delivery/routes/route_helper.dart';
+import 'package:delivery/utils/app_constants.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:delivery/utils/dimensions.dart';
 import 'package:delivery/widgets/app_column.dart';
@@ -5,8 +10,8 @@ import 'package:delivery/widgets/big_text.dart';
 import 'package:delivery/widgets/icon_and_text_widget.dart';
 import 'package:delivery/widgets/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({super.key});
@@ -27,9 +32,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     pageController.addListener(() {
       setState(() {
         _currentPageValue = pageController.page!;
-        if (kDebugMode) {
-          print('Current Page is $_currentPageValue');
-        }
       });
     });
   }
@@ -45,29 +47,51 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         // Slider section
-        SizedBox(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return _buildPageItem(index);
-            },
-          ),
+        GetBuilder<PopularProductController>(
+          builder: (popularProducts) {
+            return popularProducts.isLoaded
+                ? SizedBox(
+                    height: Dimensions.pageView,
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: pageController,
+                      itemCount: popularProducts.popularProductList.length,
+                      itemBuilder: (context, index) {
+                        return _buildPageItem(
+                            index, popularProducts.popularProductList[index]);
+                      },
+                    ),
+                  )
+                : SizedBox(
+                    height: Dimensions.pageView,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+                  );
+          },
         ),
         // Dots
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currentPageValue,
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeColor: AppColor.mainColor,
-            activeShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radius30),
-            ),
-          ),
+        GetBuilder<PopularProductController>(
+          builder: (popularProducts) {
+            return DotsIndicator(
+              dotsCount: popularProducts.popularProductList.isEmpty
+                  ? 1
+                  : popularProducts.popularProductList.length,
+              position: _currentPageValue,
+              decorator: DotsDecorator(
+                size: const Size.square(9.0),
+                activeSize: const Size(18.0, 9.0),
+                activeColor: AppColor.mainColor,
+                activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                ),
+              ),
+            );
+          },
         ),
+
         SizedBox(height: Dimensions.height30),
         // Popular text
         Container(
@@ -75,7 +99,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: 'Popular'),
+              BigText(text: 'Recommended'),
               SizedBox(
                 width: Dimensions.width10,
               ),
@@ -97,65 +121,117 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         // List od food and images
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10),
-              child: Row(
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radius20),
-                      color: Colors.red,
-                      image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage('assets/images/food2.jpg'),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(Dimensions.radius20),
-                          bottomRight: Radius.circular(Dimensions.radius20),
+        GetBuilder<RecommendedProductController>(
+          builder: (recommendedProduct) {
+            return recommendedProduct.isLoaded
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: recommendedProduct.recommendedProductList.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RouteHelper.getRecommendedFood(index));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: Dimensions.width20,
+                              right: Dimensions.width20,
+                              bottom: Dimensions.height10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: Dimensions.pageViewTextContainer,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radius20),
+                                  color: Colors.red,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                        '${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${recommendedProduct.recommendedProductList[index].img!}'),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight:
+                                          Radius.circular(Dimensions.radius20),
+                                      bottomRight:
+                                          Radius.circular(Dimensions.radius20),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: Dimensions.height10,
+                                        left: Dimensions.width10,
+                                        right: Dimensions.width10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        BigText(
+                                            text: recommendedProduct
+                                                .recommendedProductList[index]
+                                                .name!),
+                                        SizedBox(height: Dimensions.height15),
+                                        SmallText(
+                                            text: recommendedProduct
+                                                .recommendedProductList[index]
+                                                .description!,
+                                            textOverflow:
+                                                TextOverflow.ellipsis),
+                                        SizedBox(height: Dimensions.height10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: const [
+                                            IconAndTextWidget(
+                                                icon: Icons.circle_sharp,
+                                                text: 'Normal',
+                                                iconColor: AppColor.iconColor1),
+                                            IconAndTextWidget(
+                                                icon: Icons.location_on,
+                                                text: '1.7km',
+                                                iconColor: AppColor.mainColor),
+                                            IconAndTextWidget(
+                                                icon: Icons
+                                                    .access_time_filled_rounded,
+                                                text: '32min',
+                                                iconColor: AppColor.iconColor2)
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: Dimensions.height10, left: Dimensions.width10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            BigText(text: 'Nutritious fruit meal in China'),
-                            SizedBox(height: Dimensions.height10),
-                            SmallText(text: 'With chinese characteristics'),
-                            SizedBox(height: Dimensions.height10),
-                          ],
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   )
-                ],
-              ),
-            );
+                : SizedBox(
+                    height: Dimensions.pageView,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+                  );
           },
-        )
+        ),
       ],
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, ProductModel popularProduct) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currentPageValue.floor()) {
       var currScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
@@ -184,18 +260,24 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-            height: Dimensions.pageViewContainer,
-            margin: EdgeInsets.only(
-                left: Dimensions.width10, right: Dimensions.width10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              color: index.isEven
-                  ? const Color(0xFF69c5df)
-                  : const Color(0xFF929Acc),
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/food6.jpg'),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(RouteHelper.getPopularFood(index));
+            },
+            child: Container(
+              height: Dimensions.pageViewContainer,
+              margin: EdgeInsets.only(
+                  left: Dimensions.width10, right: Dimensions.width10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                color: index.isEven
+                    ? const Color(0xFF69c5df)
+                    : const Color(0xFF929Acc),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                      '${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${popularProduct.img!}'),
+                ),
               ),
             ),
           ),
@@ -228,7 +310,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     top: Dimensions.height15,
                     left: Dimensions.width15,
                     right: Dimensions.width15),
-                child: const AppColumn(text: 'Chinese Side'),
+                child: AppColumn(text: popularProduct.name!),
               ),
             ),
           ),
