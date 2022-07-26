@@ -166,7 +166,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: AppColor.mainColor),
                   child: BigText(
-                    text: '\$10 | Add to cart',
+                    text: '\$${product.price!}| Add to cart',
                     color: Colors.white,
                   ),
                 )
