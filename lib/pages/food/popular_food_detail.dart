@@ -3,7 +3,6 @@ import 'package:delivery/controllers/popular_product_controller.dart';
 import 'package:delivery/utils/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:get/get.dart';
 
 import 'package:delivery/routes/route_helper.dart';
@@ -70,7 +69,53 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                         Get.toNamed(RouteHelper.getInitial());
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios)),
-                  const AppIcon(icon: Icons.shopping_cart_outlined),
+                  GetBuilder<PopularProductController>(
+                    builder: (controller) {
+                      return Stack(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RouteHelper.cartFood);
+                              },
+                              child: const AppIcon(
+                                  icon: Icons.shopping_cart_outlined)),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: 0.0,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(RouteHelper.cartFood);
+                                    },
+                                    child: AppIcon(
+                                      icon: Icons.circle,
+                                      size: Dimensions.iconsSize20,
+                                      iconColor: Colors.transparent,
+                                      backgroundColor: AppColor.mainColor,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          Get.find<PopularProductController>().totalItems >= 1
+                              ? Positioned(
+                                  top: 0.0,
+                                  right: Dimensions.width10 - 5,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(RouteHelper.cartFood);
+                                    },
+                                    child: BigText(
+                                      text: controller.inCartItem.toString(),
+                                      color: Colors.white,
+                                      size: Dimensions.font16,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -104,8 +149,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
-                        child:
-                            ExpandableTextWidget(text: product.description!),
+                        child: ExpandableTextWidget(text: product.description!),
                       ),
                     )
                   ],

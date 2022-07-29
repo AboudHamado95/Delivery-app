@@ -1,9 +1,12 @@
+import 'package:delivery/pages/cart_page.dart';
 import 'package:delivery/pages/home/food_page_body.dart';
+import 'package:delivery/routes/route_helper.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:delivery/utils/dimensions.dart';
 import 'package:delivery/widgets/big_text.dart';
 import 'package:delivery/widgets/small_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({super.key});
@@ -51,10 +54,15 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         color: AppColor.mainColor),
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 24.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.cartFood);
+                      },
+                      child: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
                     ),
                   ),
                 ),

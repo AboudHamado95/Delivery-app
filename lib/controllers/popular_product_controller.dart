@@ -1,5 +1,6 @@
 import 'package:delivery/controllers/cart_controller.dart';
 import 'package:delivery/data/repository/popular_product_repo.dart';
+import 'package:delivery/models/cart_model.dart';
 import 'package:delivery/models/product_model.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +27,16 @@ class PopularProductController extends GetxController {
   int _inCartItem = 0;
   int get inCartItem {
     return _inCartItem + _quantity;
+  }
+
+  Future<void> getPopularProductList() async {
+    Response response = await popularProductRepo.getPopularProductList();
+    if (response.statusCode == 200) {
+      _popularProductList = [];
+      _popularProductList.addAll(Product.fromJson(response.body).products);
+      _isLoaded = true;
+      update();
+    } else {}
   }
 
   void setQuantity(bool isIncrement) {
@@ -64,10 +75,18 @@ class PopularProductController extends GetxController {
     if ((_inCartItem + quantity) < 0) {
       Get.snackbar('Item count:', 'You can\'t reduce more ! ',
           backgroundColor: AppColor.mainColor, colorText: Colors.white);
+      if (_inCartItem > 0) {
+        _quantity = -_inCartItem;
+        return _quantity;
+      }
       return 0;
     } else if ((_inCartItem + quantity) > 20) {
       Get.snackbar('Item count:', 'You can\'t add more ! ',
           backgroundColor: AppColor.mainColor, colorText: Colors.white);
+      if (_inCartItem > 0) {
+        _inCartItem = 0;
+        return quantity;
+      }
       return 20;
     } else {
       return quantity;
@@ -83,15 +102,12 @@ class PopularProductController extends GetxController {
         print('The id is ${value.id} The quantity is ${value.quantity}');
       }
     });
+    update();
   }
 
-  Future<void> getPopularProductList() async {
-    Response response = await popularProductRepo.getPopularProductList();
-    if (response.statusCode == 200) {
-      _popularProductList = [];
-      _popularProductList.addAll(Product.fromJson(response.body).products);
-      _isLoaded = true;
-      update();
-    } else {}
+  int get totalItems {
+    return _cart.totalItems;
   }
+
+ 
 }
