@@ -14,8 +14,10 @@ import 'package:delivery/widgets/big_text.dart';
 import 'package:delivery/widgets/expandable_text_widget.dart';
 
 class PopularFoodDetail extends StatefulWidget {
-  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
+  const PopularFoodDetail({Key? key, required this.pageId, required this.page})
+      : super(key: key);
   final int pageId;
+  final String page;
 
   @override
   State<PopularFoodDetail> createState() => _PopularFoodDetailState();
@@ -66,53 +68,49 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Get.toNamed(RouteHelper.getInitial());
+                        if (widget.page == 'cartpage') {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        } else {
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
                       },
                       child: const AppIcon(icon: Icons.arrow_back_ios)),
                   GetBuilder<PopularProductController>(
                     builder: (controller) {
-                      return Stack(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteHelper.cartFood);
-                              },
-                              child: const AppIcon(
-                                  icon: Icons.shopping_cart_outlined)),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  top: 0.0,
-                                  right: 0.0,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(RouteHelper.cartFood);
-                                    },
+                      return GestureDetector(
+                        onTap: () {
+                          if (controller.totalItems >= 1) {
+                            Get.toNamed(RouteHelper.cartPage);
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            const AppIcon(icon: Icons.shopping_cart_outlined),
+                            Get.find<PopularProductController>().totalItems >= 1
+                                ? Positioned(
+                                    top: 0.0,
+                                    right: 0.0,
                                     child: AppIcon(
                                       icon: Icons.circle,
                                       size: Dimensions.iconsSize20,
                                       iconColor: Colors.transparent,
                                       backgroundColor: AppColor.mainColor,
                                     ),
-                                  ),
-                                )
-                              : Container(),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  top: 0.0,
-                                  right: Dimensions.width10 - 5,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(RouteHelper.cartFood);
-                                    },
+                                  )
+                                : Container(),
+                            Get.find<PopularProductController>().totalItems >= 1
+                                ? Positioned(
+                                    top: 0.0,
+                                    right: Dimensions.width10 - 5,
                                     child: BigText(
                                       text: controller.inCartItem.toString(),
                                       color: Colors.white,
                                       size: Dimensions.font16,
                                     ),
-                                  ),
-                                )
-                              : Container(),
-                        ],
+                                  )
+                                : Container(),
+                          ],
+                        ),
                       );
                     },
                   ),

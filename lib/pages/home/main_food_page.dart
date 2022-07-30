@@ -56,7 +56,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                         color: AppColor.mainColor),
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(RouteHelper.cartFood);
+                        Get.toNamed(RouteHelper.cartPage);
                       },
                       child: const Icon(
                         Icons.search,

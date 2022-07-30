@@ -1,6 +1,5 @@
 import 'package:delivery/controllers/cart_controller.dart';
 import 'package:delivery/data/repository/popular_product_repo.dart';
-import 'package:delivery/models/cart_model.dart';
 import 'package:delivery/models/product_model.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:flutter/foundation.dart';

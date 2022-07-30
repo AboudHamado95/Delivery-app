@@ -1,12 +1,12 @@
-import 'package:delivery/controllers/cart_controller.dart';
-import 'package:delivery/controllers/popular_product_controller.dart';
-import 'package:delivery/controllers/recommended_product_controller.dart';
-import 'package:delivery/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:get/get.dart';
 
+import 'package:delivery/controllers/cart_controller.dart';
+import 'package:delivery/controllers/popular_product_controller.dart';
+import 'package:delivery/controllers/recommended_product_controller.dart';
 import 'package:delivery/routes/route_helper.dart';
+import 'package:delivery/utils/app_constants.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:delivery/utils/dimensions.dart';
 import 'package:delivery/widgets/app_icon.dart';
@@ -14,9 +14,11 @@ import 'package:delivery/widgets/big_text.dart';
 import 'package:delivery/widgets/expandable_text_widget.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key, required this.pageId})
+  const RecommendedFoodDetail(
+      {Key? key, required this.pageId, required this.page})
       : super(key: key);
   final int pageId;
+  final String page;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                         child: const AppIcon(icon: Icons.clear)),
                     GestureDetector(
                         onTap: () {
-                          Get.toNamed(RouteHelper.cartFood);
+                          Get.toNamed(RouteHelper.cartPage);
                         },
                         child:
                             const AppIcon(icon: Icons.shopping_cart_outlined))
