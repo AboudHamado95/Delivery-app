@@ -4,6 +4,7 @@
         "cupertino",
         "curr",
         "Getx",
-        "Roboto"
+        "Roboto",
+        "vsync"
     ]
 }

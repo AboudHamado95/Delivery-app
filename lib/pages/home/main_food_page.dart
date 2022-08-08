@@ -1,4 +1,4 @@
-import 'package:delivery/pages/cart_page.dart';
+import 'package:delivery/pages/cart/cart_page.dart';
 import 'package:delivery/pages/home/food_page_body.dart';
 import 'package:delivery/routes/route_helper.dart';
 import 'package:delivery/utils/colors.dart';
