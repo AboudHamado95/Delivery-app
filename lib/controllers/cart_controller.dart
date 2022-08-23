@@ -52,6 +52,7 @@ class CartController extends GetxController {
             backgroundColor: AppColor.mainColor, colorText: Colors.white);
       }
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -74,11 +75,13 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totalItems {
+  int totalItems(ProductModel product) {
     var totalQuantity = 0;
-    _items.forEach((key, value) {
-      totalQuantity = value.quantity!;
-    });
+    if (_items.containsKey(product.id)) {
+      _items.forEach((key, value) {
+        totalQuantity = value.quantity!;
+      });
+    }
     return totalQuantity;
   }
 
@@ -92,5 +95,19 @@ class CartController extends GetxController {
       total += value.quantity! * value.price!;
     });
     return total;
+  }
+
+  List<CartModel> storageItems = [];
+
+  List<CartModel> getCartData() {
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
   }
 }

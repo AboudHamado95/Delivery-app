@@ -79,14 +79,16 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                     builder: (controller) {
                       return GestureDetector(
                         onTap: () {
-                          if (controller.totalItems >= 1) {
+                          if (controller.totalItems(product) >= 1) {
                             Get.toNamed(RouteHelper.cartPage);
                           }
                         },
                         child: Stack(
                           children: [
                             const AppIcon(icon: Icons.shopping_cart_outlined),
-                            Get.find<PopularProductController>().totalItems >= 1
+                            Get.find<PopularProductController>()
+                                        .totalItems(product) >=
+                                    1
                                 ? Positioned(
                                     top: 0.0,
                                     right: 0.0,
@@ -98,7 +100,9 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                                     ),
                                   )
                                 : Container(),
-                            Get.find<PopularProductController>().totalItems >= 1
+                            Get.find<PopularProductController>()
+                                        .totalItems(product) >=
+                                    1
                                 ? Positioned(
                                     top: 0.0,
                                     right: Dimensions.width10 - 5,

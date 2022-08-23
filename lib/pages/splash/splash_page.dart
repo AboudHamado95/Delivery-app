@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
 
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 6),
       (() => Get.offNamed(RouteHelper.getInitial())),
     );
   }
@@ -50,19 +50,24 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ScaleTransition(
-            scale: animation,
-            child: Image.asset('assets/images/food6.jpg'),
+      body: Center(
+        child: ScaleTransition(
+          scale: animation,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/delivery.png',
+                width: Dimensions.splashImg,
+              ),
+              Text(
+                'The Best Food!',
+                style: TextStyle(
+                    fontSize: Dimensions.font26, color: AppColor.mainColor),
+              ),
+            ],
           ),
-          Text(
-            'The Best Food!',
-            style: TextStyle(
-                fontSize: Dimensions.font26, color: AppColor.mainColor),
-          ),
-        ],
+        ),
       ),
     );
   }

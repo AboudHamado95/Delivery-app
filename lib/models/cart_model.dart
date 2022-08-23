@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:delivery/models/product_model.dart';
 
 class CartModel {
@@ -29,5 +31,18 @@ class CartModel {
     isExit = json['isExit'];
     time = json['time'];
     product = ProductModel.fromJson(json['product']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'img': img,
+      'quantity': quantity,
+      'isExit': isExit,
+      'time': time,
+      'product': product!.toJson(),
+    };
   }
 }

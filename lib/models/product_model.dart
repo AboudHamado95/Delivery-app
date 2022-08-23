@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Product {
   int? totalSize;
   int? typeId;
@@ -62,5 +64,20 @@ class ProductModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     typeId = json['type_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price': price,
+      'stars': stars,
+      'img': img,
+      'location': location,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'typeId': typeId,
+    };
   }
 }
