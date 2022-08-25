@@ -9,7 +9,7 @@ import 'package:delivery/data/repository/cart_repo.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
-  final Map<int, CartModel> _items = {};
+  Map<int, CartModel> _items = {};
 
   Map<int, CartModel> get items => _items;
 
@@ -109,5 +109,19 @@ class CartController extends GetxController {
     for (int i = 0; i < storageItems.length; i++) {
       _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
     }
+  }
+
+  void addToHistory() {
+    cartRepo.addToCartHistoryList();
+    clear();
+  }
+
+  void clear() {
+    _items = {};
+    update();
+  }
+
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
   }
 }

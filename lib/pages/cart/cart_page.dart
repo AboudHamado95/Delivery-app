@@ -260,7 +260,9 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          controller.addToHistory();
+                        },
                         child: Container(
                           padding: EdgeInsets.only(
                             top: Dimensions.height20,
@@ -273,7 +275,7 @@ class _CartPageState extends State<CartPage> {
                                   BorderRadius.circular(Dimensions.radius20),
                               color: AppColor.mainColor),
                           child: BigText(
-                            text: ' | Add to cart',
+                            text: 'Check out',
                             color: Colors.white,
                           ),
                         ),
