@@ -82,7 +82,7 @@ class _CartPageState extends State<CartPage> {
                     removeTop: true,
                     child: GetBuilder<CartController>(
                       builder: (controller) {
-                        var _cartList = controller.getItems;
+                        var cartList = controller.getItems;
                         return ListView.builder(
                           itemCount: controller.getItems.length,
                           itemBuilder: (context, index) {
@@ -93,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                                     var popularIndex =
                                         Get.find<PopularProductController>()
                                             .popularProductList
-                                            .indexOf(_cartList[index].product!);
+                                            .indexOf(cartList[index].product!);
                                     if (popularIndex >= 0) {
                                       Get.toNamed(RouteHelper.getPopularFood(
                                           popularIndex, 'popular'));
@@ -101,10 +101,18 @@ class _CartPageState extends State<CartPage> {
                                       var recommendedIndex = Get.find<
                                               RecommendedProductController>()
                                           .recommendedProductList
-                                          .indexOf(_cartList[index].product!);
-                                      Get.toNamed(
-                                          RouteHelper.getRecommendedFood(
-                                              recommendedIndex, 'recommended'));
+                                          .indexOf(cartList[index].product!);
+                                      if (recommendedIndex < 0) {
+                                        Get.snackbar('History product:',
+                                            'Product review is not available for history product! ',
+                                            backgroundColor: AppColor.mainColor,
+                                            colorText: Colors.white);
+                                      } else {
+                                        Get.toNamed(
+                                            RouteHelper.getRecommendedFood(
+                                                recommendedIndex,
+                                                'recommended'));
+                                      }
                                     }
                                   },
                                   child: Container(
@@ -168,7 +176,7 @@ class _CartPageState extends State<CartPage> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       controller.addItem(
-                                                          _cartList[index]
+                                                          cartList[index]
                                                               .product!,
                                                           -1);
                                                     },
@@ -193,7 +201,7 @@ class _CartPageState extends State<CartPage> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       controller.addItem(
-                                                          _cartList[index]
+                                                          cartList[index]
                                                               .product!,
                                                           1);
                                                     },
