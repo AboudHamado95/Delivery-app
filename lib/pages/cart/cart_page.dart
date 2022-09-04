@@ -1,3 +1,4 @@
+import 'package:delivery/base/no_data_page.dart';
 import 'package:delivery/controllers/cart_controller.dart';
 import 'package:delivery/controllers/popular_product_controller.dart';
 import 'package:delivery/controllers/recommended_product_controller.dart';
@@ -83,146 +84,163 @@ class _CartPageState extends State<CartPage> {
                     child: GetBuilder<CartController>(
                       builder: (controller) {
                         var cartList = controller.getItems;
-                        return ListView.builder(
-                          itemCount: controller.getItems.length,
-                          itemBuilder: (context, index) {
-                            return Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    var popularIndex =
-                                        Get.find<PopularProductController>()
-                                            .popularProductList
-                                            .indexOf(cartList[index].product!);
-                                    if (popularIndex >= 0) {
-                                      Get.toNamed(RouteHelper.getPopularFood(
-                                          popularIndex, 'popular'));
-                                    } else {
-                                      var recommendedIndex = Get.find<
-                                              RecommendedProductController>()
-                                          .recommendedProductList
-                                          .indexOf(cartList[index].product!);
-                                      if (recommendedIndex < 0) {
-                                        Get.snackbar('History product:',
-                                            'Product review is not available for history product! ',
-                                            backgroundColor: AppColor.mainColor,
-                                            colorText: Colors.white);
-                                      } else {
-                                        Get.toNamed(
-                                            RouteHelper.getRecommendedFood(
-                                                recommendedIndex,
-                                                'recommended'));
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    height: Dimensions.height10 * 10,
-                                    width: Dimensions.width20 * 5,
-                                    margin: EdgeInsets.only(
-                                        bottom: Dimensions.height10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radius20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(AppConstants
-                                                  .BASE_URL +
-                                              AppConstants.UPLOAD_URL +
-                                              controller.getItems[index].img!)),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: Dimensions.width10,
-                                ),
-                                Expanded(
-                                  child: SizedBox(
-                                    height: Dimensions.height20 * 5,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        BigText(
-                                          text:
-                                              controller.getItems[index].name!,
-                                          color: Colors.black54,
+                        return cartList.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: controller.getItems.length,
+                                itemBuilder: (context, index) {
+                                  return Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          var popularIndex = Get.find<
+                                                  PopularProductController>()
+                                              .popularProductList
+                                              .indexOf(
+                                                  cartList[index].product!);
+                                          if (popularIndex >= 0) {
+                                            Get.toNamed(
+                                                RouteHelper.getPopularFood(
+                                                    popularIndex, 'popular'));
+                                          } else {
+                                            var recommendedIndex = Get.find<
+                                                    RecommendedProductController>()
+                                                .recommendedProductList
+                                                .indexOf(
+                                                    cartList[index].product!);
+                                            if (recommendedIndex < 0) {
+                                              Get.snackbar('History product:',
+                                                  'Product review is not available for history product! ',
+                                                  backgroundColor:
+                                                      AppColor.mainColor,
+                                                  colorText: Colors.white);
+                                            } else {
+                                              Get.toNamed(RouteHelper
+                                                  .getRecommendedFood(
+                                                      recommendedIndex,
+                                                      'recommended'));
+                                            }
+                                          }
+                                        },
+                                        child: Container(
+                                          height: Dimensions.height10 * 10,
+                                          width: Dimensions.width20 * 5,
+                                          margin: EdgeInsets.only(
+                                              bottom: Dimensions.height10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radius20),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(AppConstants
+                                                        .BASE_URL +
+                                                    AppConstants.UPLOAD_URL +
+                                                    controller
+                                                        .getItems[index].img!)),
+                                          ),
                                         ),
-                                        const SmallText(text: 'Spicy'),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            BigText(
-                                              text:
-                                                  '\$ ${controller.getItems[index].price!}',
-                                              color: Colors.redAccent,
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  top: Dimensions.height10,
-                                                  bottom: Dimensions.height10,
-                                                  left: Dimensions.width10,
-                                                  right: Dimensions.width10),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          Dimensions.radius20),
-                                                  color: Colors.white),
-                                              child: Row(
+                                      ),
+                                      SizedBox(
+                                        width: Dimensions.width10,
+                                      ),
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: Dimensions.height20 * 5,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              BigText(
+                                                text: controller
+                                                    .getItems[index].name!,
+                                                color: Colors.black54,
+                                              ),
+                                              const SmallText(text: 'Spicy'),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      controller.addItem(
-                                                          cartList[index]
-                                                              .product!,
-                                                          -1);
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.remove,
-                                                      color: AppColor.signColor,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        Dimensions.width10 / 2,
-                                                  ),
                                                   BigText(
-                                                      text: controller
-                                                          .getItems[index]
-                                                          .quantity
-                                                          .toString()),
-                                                  SizedBox(
-                                                    width:
-                                                        Dimensions.width10 / 2,
+                                                    text:
+                                                        '\$ ${controller.getItems[index].price!}',
+                                                    color: Colors.redAccent,
                                                   ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      controller.addItem(
-                                                          cartList[index]
-                                                              .product!,
-                                                          1);
-                                                    },
-                                                    child: const Icon(
-                                                      Icons.add,
-                                                      color: AppColor.signColor,
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        top:
+                                                            Dimensions.height10,
+                                                        bottom:
+                                                            Dimensions.height10,
+                                                        left:
+                                                            Dimensions.width10,
+                                                        right:
+                                                            Dimensions.width10),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                Dimensions
+                                                                    .radius20),
+                                                        color: Colors.white),
+                                                    child: Row(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            controller.addItem(
+                                                                cartList[index]
+                                                                    .product!,
+                                                                -1);
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.remove,
+                                                            color: AppColor
+                                                                .signColor,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: Dimensions
+                                                                  .width10 /
+                                                              2,
+                                                        ),
+                                                        BigText(
+                                                            text: controller
+                                                                .getItems[index]
+                                                                .quantity
+                                                                .toString()),
+                                                        SizedBox(
+                                                          width: Dimensions
+                                                                  .width10 /
+                                                              2,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            controller.addItem(
+                                                                cartList[index]
+                                                                    .product!,
+                                                                1);
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            color: AppColor
+                                                                .signColor,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                      ),
+                                    ],
+                                  );
+                                },
+                              )
+                            : const NoDataPage(text: 'Your cart is empty!');
                       },
                     )),
               ),
