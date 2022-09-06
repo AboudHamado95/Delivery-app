@@ -32,7 +32,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   children: [
                     BigText(
                       text: 'Bangladesh',
-                      color: AppColor.mainColor,
+                      color: AppColors.mainColor,
                     ),
                     Row(
                       children: const [
@@ -53,7 +53,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     height: Dimensions.height45,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        color: AppColor.mainColor),
+                        color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {
                         Get.toNamed(RouteHelper.cartPage);

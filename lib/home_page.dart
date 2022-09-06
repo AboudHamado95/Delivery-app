@@ -1,3 +1,5 @@
+import 'package:delivery/pages/auth/account_page.dart';
+import 'package:delivery/pages/auth/sign_in_page.dart';
 import 'package:delivery/pages/cart/cart_history.dart';
 import 'package:delivery/pages/home/main_food_page.dart';
 import 'package:delivery/utils/colors.dart';
@@ -14,13 +16,9 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
     const MainFoodPage(),
-    const Center(
-      child: Text('Next-page'),
-    ),
+    const SignInPage(),
     const CartHistory(),
-    const Center(
-      child: Text('Next next next-page'),
-    ),
+    const AccountPage()
   ];
 
   void onTapNav(int index) {
@@ -37,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: AppColor.mainColor,
+        selectedItemColor: AppColors.mainColor,
         unselectedItemColor: Colors.amberAccent,
         currentIndex: _selectedIndex,
         selectedFontSize: 0.0,

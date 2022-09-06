@@ -3,8 +3,10 @@
         "cartpage",
         "cupertino",
         "curr",
+        "fluttericon",
         "Getx",
         "Roboto",
+        "Typicons",
         "vsync"
     ]
 }

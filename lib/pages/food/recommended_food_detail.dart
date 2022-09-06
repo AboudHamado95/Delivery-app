@@ -76,7 +76,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 ),
               ),
               pinned: true,
-              backgroundColor: AppColor.yellowColor,
+              backgroundColor: AppColors.yellowColor,
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
@@ -131,11 +131,11 @@ class RecommendedFoodDetail extends StatelessWidget {
                             iconSize: Dimensions.iconsSize24,
                             icon: Icons.remove,
                             iconColor: Colors.white,
-                            backgroundColor: AppColor.mainColor),
+                            backgroundColor: AppColors.mainColor),
                       ),
                       BigText(
                         text: '\$${product.price!} X ${controller.inCartItem}',
-                        color: AppColor.mainBlackColor,
+                        color: AppColors.mainBlackColor,
                         size: Dimensions.font20,
                       ),
                       GestureDetector(
@@ -146,7 +146,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                             iconSize: Dimensions.iconsSize24,
                             icon: Icons.add,
                             iconColor: Colors.white,
-                            backgroundColor: AppColor.mainColor),
+                            backgroundColor: AppColors.mainColor),
                       )
                     ],
                   ),
@@ -159,7 +159,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                       left: Dimensions.width20,
                       right: Dimensions.width20),
                   decoration: BoxDecoration(
-                    color: AppColor.buttonBackgroundColor,
+                    color: AppColors.buttonBackgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(Dimensions.radius20 * 2),
                       topRight: Radius.circular(Dimensions.radius20 * 2),
@@ -180,7 +180,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                               color: Colors.white),
                           child: const Icon(
                             Icons.favorite,
-                            color: AppColor.mainColor,
+                            color: AppColors.mainColor,
                           )),
                       GestureDetector(
                         onTap: () {
@@ -196,7 +196,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.circular(Dimensions.radius20),
-                              color: AppColor.mainColor),
+                              color: AppColors.mainColor),
                           child: BigText(
                             text: '\$ ${product.price!} | Add to cart',
                             color: Colors.white,

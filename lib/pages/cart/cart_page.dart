@@ -39,7 +39,7 @@ class _CartPageState extends State<CartPage> {
                     child: AppIcon(
                       icon: Icons.arrow_back_ios,
                       iconColor: Colors.white,
-                      backgroundColor: AppColor.mainColor,
+                      backgroundColor: AppColors.mainColor,
                       iconSize: Dimensions.iconsSize24,
                     ),
                   ),
@@ -53,7 +53,7 @@ class _CartPageState extends State<CartPage> {
                         child: AppIcon(
                           icon: Icons.home_outlined,
                           iconColor: Colors.white,
-                          backgroundColor: AppColor.mainColor,
+                          backgroundColor: AppColors.mainColor,
                           iconSize: Dimensions.iconsSize24,
                         ),
                       ),
@@ -63,7 +63,7 @@ class _CartPageState extends State<CartPage> {
                       AppIcon(
                         icon: Icons.shopping_cart,
                         iconColor: Colors.white,
-                        backgroundColor: AppColor.mainColor,
+                        backgroundColor: AppColors.mainColor,
                         iconSize: Dimensions.iconsSize24,
                       )
                     ],
@@ -111,7 +111,7 @@ class _CartPageState extends State<CartPage> {
                                               Get.snackbar('History product:',
                                                   'Product review is not available for history product! ',
                                                   backgroundColor:
-                                                      AppColor.mainColor,
+                                                      AppColors.mainColor,
                                                   colorText: Colors.white);
                                             } else {
                                               Get.toNamed(RouteHelper
@@ -195,7 +195,7 @@ class _CartPageState extends State<CartPage> {
                                                           },
                                                           child: const Icon(
                                                             Icons.remove,
-                                                            color: AppColor
+                                                            color: AppColors
                                                                 .signColor,
                                                           ),
                                                         ),
@@ -223,7 +223,7 @@ class _CartPageState extends State<CartPage> {
                                                           },
                                                           child: const Icon(
                                                             Icons.add,
-                                                            color: AppColor
+                                                            color: AppColors
                                                                 .signColor,
                                                           ),
                                                         ),
@@ -260,7 +260,7 @@ class _CartPageState extends State<CartPage> {
                       left: Dimensions.width20,
                       right: Dimensions.width20),
                   decoration: BoxDecoration(
-                    color: AppColor.buttonBackgroundColor,
+                    color: AppColors.buttonBackgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(Dimensions.radius20 * 2),
                       topRight: Radius.circular(Dimensions.radius20 * 2),
@@ -281,7 +281,7 @@ class _CartPageState extends State<CartPage> {
                             color: Colors.white),
                         child: BigText(
                           text: '\$ ${controller.totalAmount} ',
-                          color: AppColor.mainBlackColor,
+                          color: AppColors.mainBlackColor,
                           size: Dimensions.font20,
                         ),
                       ),
@@ -299,7 +299,7 @@ class _CartPageState extends State<CartPage> {
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.circular(Dimensions.radius20),
-                              color: AppColor.mainColor),
+                              color: AppColors.mainColor),
                           child: BigText(
                             text: 'Check out',
                             color: Colors.white,

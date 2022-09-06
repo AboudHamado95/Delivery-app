@@ -96,7 +96,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                                       icon: Icons.circle,
                                       size: Dimensions.iconsSize20,
                                       iconColor: Colors.transparent,
-                                      backgroundColor: AppColor.mainColor,
+                                      backgroundColor: AppColors.mainColor,
                                     ),
                                   )
                                 : Container(),
@@ -170,7 +170,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                   left: Dimensions.width20,
                   right: Dimensions.width20),
               decoration: BoxDecoration(
-                color: AppColor.buttonBackgroundColor,
+                color: AppColors.buttonBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Dimensions.radius20 * 2),
                   topRight: Radius.circular(Dimensions.radius20 * 2),
@@ -197,7 +197,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                           },
                           child: const Icon(
                             Icons.remove,
-                            color: AppColor.signColor,
+                            color: AppColors.signColor,
                           ),
                         ),
                         SizedBox(
@@ -213,7 +213,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                           },
                           child: const Icon(
                             Icons.add,
-                            color: AppColor.signColor,
+                            color: AppColors.signColor,
                           ),
                         ),
                       ],
@@ -233,7 +233,7 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
-                          color: AppColor.mainColor),
+                          color: AppColors.mainColor),
                       child: BigText(
                         text: '\$ ${product.price!} | Add to cart',
                         color: Colors.white,

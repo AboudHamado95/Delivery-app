@@ -10,7 +10,7 @@ class SmallText extends StatelessWidget {
   final TextOverflow? textOverflow;
   const SmallText({
     Key? key,
-    this.color = AppColor.textColor,
+    this.color = AppColors.textColor,
     required this.text,
     this.size = 12,
     this.height = 1.2,

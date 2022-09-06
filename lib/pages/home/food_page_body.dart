@@ -66,7 +66,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     height: Dimensions.pageView,
                     child: const Center(
                       child: CircularProgressIndicator(
-                        color: AppColor.mainColor,
+                        color: AppColors.mainColor,
                       ),
                     ),
                   );
@@ -83,7 +83,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               decorator: DotsDecorator(
                 size: const Size.square(9.0),
                 activeSize: const Size(18.0, 9.0),
-                activeColor: AppColor.mainColor,
+                activeColor: AppColors.mainColor,
                 activeShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.radius30),
                 ),
@@ -194,16 +194,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                             IconAndTextWidget(
                                                 icon: Icons.circle_sharp,
                                                 text: 'Normal',
-                                                iconColor: AppColor.iconColor1),
+                                                iconColor: AppColors.iconColor1),
                                             IconAndTextWidget(
                                                 icon: Icons.location_on,
                                                 text: '1.7km',
-                                                iconColor: AppColor.mainColor),
+                                                iconColor: AppColors.mainColor),
                                             IconAndTextWidget(
                                                 icon: Icons
                                                     .access_time_filled_rounded,
                                                 text: '32min',
-                                                iconColor: AppColor.iconColor2)
+                                                iconColor: AppColors.iconColor2)
                                           ],
                                         ),
                                       ],
@@ -221,7 +221,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     height: Dimensions.pageView,
                     child: const Center(
                       child: CircularProgressIndicator(
-                        color: AppColor.mainColor,
+                        color: AppColors.mainColor,
                       ),
                     ),
                   );

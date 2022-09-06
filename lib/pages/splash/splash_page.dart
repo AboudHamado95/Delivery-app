@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
               Text(
                 'The Best Food!',
                 style: TextStyle(
-                    fontSize: Dimensions.font26, color: AppColor.mainColor),
+                    fontSize: Dimensions.font26, color: AppColors.mainColor),
               ),
             ],
           ),

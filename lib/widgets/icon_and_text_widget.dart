@@ -11,7 +11,7 @@ class IconAndTextWidget extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.text,
-    this.color = AppColor.textColor,
+    this.color = AppColors.textColor,
     required this.iconColor,
   }) : super(key: key);
 

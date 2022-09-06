@@ -88,7 +88,7 @@ class _CartHistoryState extends State<CartHistory> {
                 bottom: Dimensions.height10,
               ),
               decoration: BoxDecoration(
-                  color: AppColor.mainColor,
+                  color: AppColors.mainColor,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(Dimensions.radius20),
                     bottomRight: Radius.circular(Dimensions.radius20),
@@ -104,7 +104,7 @@ class _CartHistoryState extends State<CartHistory> {
                     icon: Icons.shopping_cart_outlined,
                     iconColor: Colors.white,
                     iconSize: Dimensions.iconsSize24,
-                    backgroundColor: AppColor.mainColor,
+                    backgroundColor: AppColors.mainColor,
                   ),
                 ],
               ),
@@ -208,7 +208,7 @@ class _CartHistoryState extends State<CartHistory> {
                                                   BigText(
                                                     text:
                                                         '${itemsPerOrder[i]} Items',
-                                                    color: AppColor.titleColor,
+                                                    color: AppColors.titleColor,
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
@@ -270,13 +270,13 @@ class _CartHistoryState extends State<CartHistory> {
                                                                 3),
                                                         border: Border.all(
                                                             width: 1,
-                                                            color: AppColor
+                                                            color: AppColors
                                                                 .mainColor),
                                                       ),
                                                       child: const SmallText(
                                                         text: 'one more',
                                                         color:
-                                                            AppColor.mainColor,
+                                                            AppColors.mainColor,
                                                       ),
                                                     ),
                                                   ),
@@ -298,7 +298,7 @@ class _CartHistoryState extends State<CartHistory> {
                         child: const Center(
                           child: NoDataPage(
                             text: "You didn't buy anything so far !",
-                            imgPath: 'assets/image/empty_box/',
+                            imgPath: 'assets/images/empty_box/mdpi.png',
                           ),
                         ),
                       );

@@ -17,6 +17,7 @@ dependencies:
   get: ^4.6.5
   intl: ^0.17.0
   shared_preferences: ^2.0.15
+  fluttericon: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -42,3 +43,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Roboto-Black.ttf
           weight: 900
+
+    - family: SocialMedia
+      fonts:  
+        - asset: assets/icons/google.ttf
