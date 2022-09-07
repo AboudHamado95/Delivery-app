@@ -30,7 +30,7 @@ class AppTextFormField extends StatelessWidget {
               color: Colors.grey.withOpacity(0.2))
         ],
       ),
-      child: TextFormField(
+      child: TextField(
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
