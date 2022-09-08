@@ -1,4 +1,5 @@
 import 'package:delivery/base/no_data_page.dart';
+import 'package:delivery/controllers/auth_controller.dart';
 import 'package:delivery/controllers/cart_controller.dart';
 import 'package:delivery/controllers/popular_product_controller.dart';
 import 'package:delivery/controllers/recommended_product_controller.dart';
@@ -287,7 +288,11 @@ class _CartPageState extends State<CartPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.addToHistory();
+                          if (Get.find<AuthController>().getLoggedIn()) {
+                            controller.addToHistory();
+                          } else {
+                            Get.toNamed(RouteHelper.getSignInPage());
+                          }
                         },
                         child: Container(
                           padding: EdgeInsets.only(

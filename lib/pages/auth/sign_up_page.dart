@@ -1,7 +1,10 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:delivery/base/show_custom_snackbar.dart';
 import 'package:delivery/controllers/auth_controller.dart';
 import 'package:delivery/models/sign_up_body_model.dart';
 import 'package:delivery/pages/auth/sign_in_page.dart';
+import 'package:delivery/routes/route_helper.dart';
 import 'package:delivery/utils/colors.dart';
 import 'package:delivery/utils/dimensions.dart';
 import 'package:delivery/utils/icons.dart';
@@ -29,7 +32,7 @@ class SignUpPage extends StatelessWidget {
       SocialMedia.google,
     ];
 
-    void _registration() {
+    Future<void> _registration() async {
       var authController = Get.find<AuthController>();
       String name = nameController.text.trim();
       String phone = phoneController.text.trim();
@@ -52,7 +55,6 @@ class SignUpPage extends StatelessWidget {
         showCustomSnackBar('Password can not be less than six characters',
             title: 'Password');
       } else {
-        showCustomSnackBar('All went well', title: 'Perfect', isError: false);
         SignUpBody signUpBody = SignUpBody(
             name: name, phone: phone, email: email, password: password);
         authController.registration(signUpBody).then((status) {
@@ -60,10 +62,12 @@ class SignUpPage extends StatelessWidget {
             if (kDebugMode) {
               print(status.message);
             }
+            Get.offNamed(RouteHelper.getInitial());
           } else {
             showCustomSnackBar(status.message);
           }
         });
+        showCustomSnackBar('All went well', title: 'Perfect', isError: false);
       }
     }
 
@@ -105,7 +109,8 @@ class SignUpPage extends StatelessWidget {
             AppTextFormField(
                 controller: passwordController,
                 hintText: 'Password',
-                icon: Icons.email),
+                icon: Icons.email,
+                isObscure: true),
             SizedBox(
               height: Dimensions.screenWidth * 0.05,
             ),

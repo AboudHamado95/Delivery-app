@@ -31,6 +31,7 @@ flutter:
     - assets/images/
     - assets/images/cart/
     - assets/images/empty_box/
+    - assets/images/bicycle/
 
   fonts:
     - family: Roboto

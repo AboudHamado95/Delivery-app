@@ -61,6 +61,12 @@ class CartRepo {
     sharedPreferences.remove(AppConstants.CART_LIST);
   }
 
+  void clearCartHistory() {
+    removeCart();
+    cartHistory = [];
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+  }
+
   List<CartModel> getCartHistoryList() {
     if (sharedPreferences.containsKey(AppConstants.CART_HISTORY_LIST)) {
       cartHistory = [];
